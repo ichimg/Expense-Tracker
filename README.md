@@ -1,7 +1,7 @@
 # Expense-Tracker
 A simple mobile app developed in .NET MAUI for expenses management.
 
-#Overview:
+# Overview:
 
 Overall app:
 <p> <img src="https://i.imgur.com/WAm5xxf.png" alt="accessibility text">

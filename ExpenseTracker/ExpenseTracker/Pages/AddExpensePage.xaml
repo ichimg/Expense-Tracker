@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpenseTracker.Pages.AddExpensePage"
+             BackgroundColor="WhiteSmoke">
+
+
+
+    <VerticalStackLayout  HorizontalOptions="Center" Padding="10" >
+        <Label Text="Add an expense" FontSize="36" FontAttributes="Bold" Padding="10" Margin="10, 0, 20, 0"></Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.Row="0" Padding="10">
+                <Label Text="Name: " FontSize="24"></Label>
+                <Entry Placeholder="Enter name..." WidthRequest="300" Text="{Binding Name}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Padding="10">
+                <Label Text="Amount: " FontSize="24"></Label>
+                <Entry Placeholder="Enter amount..." WidthRequest="300" Text="{Binding Amount, StringFormat='{0:0.##}', TargetNullValue=''}"/>
+                <Label Text="{Binding Preference}" Grid.Row="2" HorizontalOptions="End" FontAttributes="Bold" FontFamily="Times New Roman"/>
+            </StackLayout>
+
+            <Button Grid.Row="3" 
+                    Text="Create" 
+                    Padding="10" 
+                    WidthRequest="300" 
+                    Command="{Binding CreateExpenseCommand}"/>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

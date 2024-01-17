@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpenseTracker.Pages.MainPage"
+             xmlns:model="clr-namespace:ExpenseTracker.Domain.Models;assembly=ExpenseTracker.Domain"
+             BackgroundColor="WhiteSmoke">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings"
+                   Command="{Binding OpenSettingsCommand}"
+                   Order="Secondary"                 
+                   Priority="0" />
+        <ToolbarItem Text="About"               
+                   Order="Secondary"                 
+                   Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center"
+
+>
+            <StackLayout BackgroundColor="Black">
+                <Label Margin="10,0,0,0"
+                       Text="Expenses"
+                       FontSize="22"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       />
+            </StackLayout>
+            <Label Text="You don't have any expenses." HorizontalOptions="Center" IsVisible="{Binding IsEmptyList}"/>
+            <ListView ItemsSource="{Binding Expenses}"
+          HeightRequest="550"
+          RowHeight="100">
+       
+                <ListView.ItemTemplate>
+                    <DataTemplate
+                        x:DataType="model:Expense">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0">
+                                    <Label Grid.Row="0" 
+                                           Padding="2"
+                               Text="{Binding Name}"
+                               FontAttributes="Bold" />
+                                    <Label Grid.Row="1" 
+                               Text="{Binding FormattedAmount}"
+                               FontAttributes="Italic"
+                               VerticalOptions="End" />
+                                    <Label Grid.Row="2" 
+                               Text="{Binding Date, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                               FontAttributes="Italic"
+                               VerticalOptions="End" />
+                                </StackLayout>
+
+                                <ImageButton Source="Icons/delete.png" 
+                                             Grid.Row="0"
+                                             Grid.Column="1"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteExpenseCommand}"
+                                             CommandParameter="{Binding .}"
+                                             WidthRequest="40"
+                                             HeightRequest="40"
+                                             HorizontalOptions="End">
+                                    <ImageButton.Triggers>
+                                        <Trigger TargetType="ImageButton"
+                                         Property="IsPressed"
+                                         Value="True">
+                                            <Setter Property="Scale" Value=".8" />
+                                        </Trigger>
+                                        <Trigger TargetType="ImageButton"
+                                                 Property="IsPressed"
+                                                 Value="False">
+                                            <Setter Property="Scale" Value="1" />
+                                        </Trigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ImageButton Source="Icons/add.png" 
+              Grid.Row="0"
+              Grid.Column="1"
+              Margin="0,0,15,0"
+              Command="{Binding OpenAddExpensePageCommand}"
+              WidthRequest="50"
+              HeightRequest="50"
+              HorizontalOptions="Center">
+                <ImageButton.Triggers>
+                    <Trigger TargetType="ImageButton"
+                             Property="IsPressed"
+                             Value="True">
+                        <Setter Property="Scale" Value=".8" />
+                    </Trigger>
+                    <Trigger TargetType="ImageButton"
+                             Property="IsPressed"
+                             Value="False">
+                        <Setter Property="Scale" Value="1" />
+                    </Trigger>
+                </ImageButton.Triggers>
+            </ImageButton>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+</ContentPage>
